@@ -29,14 +29,14 @@ apis:
     properties:
       - type: Documentation
         url: https://www.express-gateway.io/docs/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://www.express-gateway.io/getting-started/
 common:
   - type: Website
     url: https://www.express-gateway.io/
   - type: Documentation
     url: https://www.express-gateway.io/docs/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/ExpressGateway
 maintainers:
   - FN: Kin Lane
