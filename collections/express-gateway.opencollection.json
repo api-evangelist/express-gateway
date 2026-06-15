@@ -1,0 +1,482 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Express Gateway Admin API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List users",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/users"
+      },
+      "docs": "List users"
+    },
+    {
+      "info": {
+        "name": "Create a user",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "http://localhost:9876/users",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a user"
+    },
+    {
+      "info": {
+        "name": "Get a user",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/users/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Username or user id"
+          }
+        ]
+      },
+      "docs": "Get a user"
+    },
+    {
+      "info": {
+        "name": "Update a user",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/users/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Username or user id"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update a user"
+    },
+    {
+      "info": {
+        "name": "Delete a user",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "http://localhost:9876/users/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Username or user id"
+          }
+        ]
+      },
+      "docs": "Delete a user"
+    },
+    {
+      "info": {
+        "name": "Activate or deactivate a user",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/users/:id/status",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Activate or deactivate a user"
+    },
+    {
+      "info": {
+        "name": "List applications",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/apps"
+      },
+      "docs": "List applications"
+    },
+    {
+      "info": {
+        "name": "Create an application",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "http://localhost:9876/apps",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create an application"
+    },
+    {
+      "info": {
+        "name": "Get an application",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/apps/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get an application"
+    },
+    {
+      "info": {
+        "name": "Update an application",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/apps/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update an application"
+    },
+    {
+      "info": {
+        "name": "Delete an application",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "http://localhost:9876/apps/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete an application"
+    },
+    {
+      "info": {
+        "name": "Activate or deactivate an application",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/apps/:id/status",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Activate or deactivate an application"
+    },
+    {
+      "info": {
+        "name": "List credentials",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/credentials"
+      },
+      "docs": "List credentials"
+    },
+    {
+      "info": {
+        "name": "Create a credential",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "http://localhost:9876/credentials",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a credential"
+    },
+    {
+      "info": {
+        "name": "List credentials for a consumer (user or app)",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/credentials/:consumerId",
+        "params": [
+          {
+            "name": "consumerId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "List credentials for a consumer (user or app)"
+    },
+    {
+      "info": {
+        "name": "Get a credential by type and id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/credentials/:type/:id",
+        "params": [
+          {
+            "name": "type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get a credential by type and id"
+    },
+    {
+      "info": {
+        "name": "Activate or deactivate a credential",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/credentials/:type/:id/status",
+        "params": [
+          {
+            "name": "type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Activate or deactivate a credential"
+    },
+    {
+      "info": {
+        "name": "Set all scopes on a credential",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/credentials/:type/:id/scopes",
+        "params": [
+          {
+            "name": "type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Set all scopes on a credential"
+    },
+    {
+      "info": {
+        "name": "Add a scope to a credential",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/credentials/:type/:id/scopes/:scope",
+        "params": [
+          {
+            "name": "type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "scope",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Add a scope to a credential"
+    },
+    {
+      "info": {
+        "name": "Remove a scope from a credential",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "http://localhost:9876/credentials/:type/:id/scopes/:scope",
+        "params": [
+          {
+            "name": "type",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "scope",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Remove a scope from a credential"
+    },
+    {
+      "info": {
+        "name": "List scopes",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/scopes"
+      },
+      "docs": "List scopes"
+    },
+    {
+      "info": {
+        "name": "Create scopes",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "http://localhost:9876/scopes",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create scopes"
+    },
+    {
+      "info": {
+        "name": "Check whether a scope exists",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://localhost:9876/scopes/:scope",
+        "params": [
+          {
+            "name": "scope",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Check whether a scope exists"
+    },
+    {
+      "info": {
+        "name": "Create a single scope",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "http://localhost:9876/scopes/:scope",
+        "params": [
+          {
+            "name": "scope",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Create a single scope"
+    },
+    {
+      "info": {
+        "name": "Delete a scope",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "http://localhost:9876/scopes/:scope",
+        "params": [
+          {
+            "name": "scope",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a scope"
+    }
+  ],
+  "bundled": true
+}
