@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/express-gateway-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: KeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: |-
+    When the Admin API is fronted by Express Gateway with key-auth,
+    send "Authorization: apikey {keyId}:{keySecret}".
+  sources:
+  - openapi/express-gateway-openapi.yml
