@@ -32,6 +32,8 @@ apis:
       - type: GettingStarted
         url: https://www.express-gateway.io/getting-started/
 common:
+  - type: AgenticAccess
+    url: agentic-access/express-gateway-agentic-access.yml
   - type: DomainSecurity
     url: security/express-gateway-domain-security.yml
   - type: Authentication
