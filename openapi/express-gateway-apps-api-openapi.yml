@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: Express Gateway Admin Apps API
+  description: 'Administrative REST API for Express Gateway - the API gateway built on
+
+    Express.js. The Admin API manages users, applications, credentials,
+
+    scopes, schemas, policies, service endpoints, API endpoints, and
+
+    pipelines. By default it listens on http://localhost:9876 and should
+
+    NOT be exposed publicly without protection - the recommended pattern
+
+    is to expose it through Express Gateway itself behind a key-auth
+
+    policy (Authorization: apikey {keyId}:{keySecret}).
+
+    '
+  version: 1.0.0
+  contact:
+    name: Express Gateway
+    url: https://www.express-gateway.io/docs/
+servers:
+- url: http://localhost:9876
+  description: Default admin API host
+security:
+- {}
+- KeyAuth: []
+tags:
+- name: Apps
+paths:
+  /apps:
+    get:
+      summary: List applications
+      operationId: listApps
+      responses:
+        '200':
+          description: Apps collection
+      tags:
+      - Apps
+    post:
+      summary: Create an application
+      operationId: createApp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: App created
+      tags:
+      - Apps
+  /apps/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get an application
+      operationId: getApp
+      responses:
+        '200':
+          description: App
+      tags:
+      - Apps
+    put:
+      summary: Update an application
+      operationId: updateApp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '204':
+          description: Updated
+      tags:
+      - Apps
+    delete:
+      summary: Delete an application
+      operationId: deleteApp
+      responses:
+        '204':
+          description: Deleted
+      tags:
+      - Apps
+  /apps/{id}/status:
+    put:
+      summary: Activate or deactivate an application
+      operationId: setAppStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - active
+                  - inactive
+      responses:
+        '204':
+          description: Status updated
+      tags:
+      - Apps
+components:
+  securitySchemes:
+    KeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'When the Admin API is fronted by Express Gateway with key-auth,
+
+        send "Authorization: apikey {keyId}:{keySecret}".
+
+        '

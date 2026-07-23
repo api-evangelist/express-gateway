@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: Express Gateway Admin Apps Scopes API
+  description: 'Administrative REST API for Express Gateway - the API gateway built on
+
+    Express.js. The Admin API manages users, applications, credentials,
+
+    scopes, schemas, policies, service endpoints, API endpoints, and
+
+    pipelines. By default it listens on http://localhost:9876 and should
+
+    NOT be exposed publicly without protection - the recommended pattern
+
+    is to expose it through Express Gateway itself behind a key-auth
+
+    policy (Authorization: apikey {keyId}:{keySecret}).
+
+    '
+  version: 1.0.0
+  contact:
+    name: Express Gateway
+    url: https://www.express-gateway.io/docs/
+servers:
+- url: http://localhost:9876
+  description: Default admin API host
+security:
+- {}
+- KeyAuth: []
+tags:
+- name: Scopes
+paths:
+  /scopes:
+    get:
+      summary: List scopes
+      operationId: listScopes
+      responses:
+        '200':
+          description: Scope collection
+      tags:
+      - Scopes
+    post:
+      summary: Create scopes
+      operationId: createScopes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scopes:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Created
+      tags:
+      - Scopes
+  /scopes/{scope}:
+    parameters:
+    - name: scope
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Check whether a scope exists
+      operationId: getScope
+      responses:
+        '200':
+          description: Scope exists
+        '404':
+          description: Not found
+      tags:
+      - Scopes
+    put:
+      summary: Create a single scope
+      operationId: createScope
+      responses:
+        '201':
+          description: Scope created
+      tags:
+      - Scopes
+    delete:
+      summary: Delete a scope
+      operationId: deleteScope
+      responses:
+        '204':
+          description: Scope deleted
+      tags:
+      - Scopes
+components:
+  securitySchemes:
+    KeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'When the Admin API is fronted by Express Gateway with key-auth,
+
+        send "Authorization: apikey {keyId}:{keySecret}".
+
+        '

@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: Express Gateway Admin Apps Users API
+  description: 'Administrative REST API for Express Gateway - the API gateway built on
+
+    Express.js. The Admin API manages users, applications, credentials,
+
+    scopes, schemas, policies, service endpoints, API endpoints, and
+
+    pipelines. By default it listens on http://localhost:9876 and should
+
+    NOT be exposed publicly without protection - the recommended pattern
+
+    is to expose it through Express Gateway itself behind a key-auth
+
+    policy (Authorization: apikey {keyId}:{keySecret}).
+
+    '
+  version: 1.0.0
+  contact:
+    name: Express Gateway
+    url: https://www.express-gateway.io/docs/
+servers:
+- url: http://localhost:9876
+  description: Default admin API host
+security:
+- {}
+- KeyAuth: []
+tags:
+- name: Users
+paths:
+  /users:
+    get:
+      summary: List users
+      operationId: listUsers
+      responses:
+        '200':
+          description: User collection
+      tags:
+      - Users
+    post:
+      summary: Create a user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: User created
+      tags:
+      - Users
+  /users/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Username or user id
+    get:
+      summary: Get a user
+      operationId: getUser
+      responses:
+        '200':
+          description: User
+      tags:
+      - Users
+    put:
+      summary: Update a user
+      operationId: updateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '204':
+          description: Updated
+      tags:
+      - Users
+    delete:
+      summary: Delete a user
+      operationId: deleteUser
+      responses:
+        '204':
+          description: Deleted
+      tags:
+      - Users
+  /users/{id}/status:
+    put:
+      summary: Activate or deactivate a user
+      operationId: setUserStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - active
+                  - inactive
+      responses:
+        '204':
+          description: Status updated
+      tags:
+      - Users
+components:
+  securitySchemes:
+    KeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'When the Admin API is fronted by Express Gateway with key-auth,
+
+        send "Authorization: apikey {keyId}:{keySecret}".
+
+        '
