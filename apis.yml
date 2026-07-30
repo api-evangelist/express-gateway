@@ -4,7 +4,20 @@ description: >-
   Express Gateway is an API gateway built on Express.js for managing
   and securing microservices and APIs.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/express-gateway.png
 tags:
   - API Composition
   - API Gateway
@@ -17,20 +30,56 @@ position: Producer
 access: Open Source
 specificationVersion: '0.19'
 apis:
-  - aid: express-gateway:express-gateway
-    name: Express Gateway
-    description: >-
-      Express Gateway is an API gateway built on Express.js for managing
-      and securing microservices and APIs.
-    humanURL: https://www.express-gateway.io/
-    tags:
-      - API Composition
-      - API Gateway
-    properties:
-      - type: Documentation
-        url: https://www.express-gateway.io/docs/
-      - type: GettingStarted
-        url: https://www.express-gateway.io/getting-started/
+- aid: express-gateway:express-gateway
+  name: Express Gateway
+  description: >-
+    Express Gateway is an API gateway built on Express.js for managing and securing microservices and
+    APIs.
+  humanURL: https://www.express-gateway.io/
+  tags:
+  - API Composition
+  - API Gateway
+  properties:
+  - type: Documentation
+    url: https://www.express-gateway.io/docs/
+  - type: GettingStarted
+    url: https://www.express-gateway.io/getting-started/
+- aid: express-gateway:express-gateway-apps-api
+  name: Express Gateway Apps API
+  description: The Apps API from Express Gateway — 3 operation(s) for apps.
+  humanURL: https://www.express-gateway.io/
+  tags:
+  - Apps
+  properties:
+  - type: OpenAPI
+    url: openapi/express-gateway-apps-api-openapi.yml
+- aid: express-gateway:express-gateway-credentials-api
+  name: Express Gateway Credentials API
+  description: The Credentials API from Express Gateway — 6 operation(s) for credentials.
+  humanURL: https://www.express-gateway.io/
+  tags:
+  - Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/express-gateway-credentials-api-openapi.yml
+- aid: express-gateway:express-gateway-scopes-api
+  name: Express Gateway Scopes API
+  description: The Scopes API from Express Gateway — 2 operation(s) for scopes.
+  humanURL: https://www.express-gateway.io/
+  tags:
+  - Scopes
+  properties:
+  - type: OpenAPI
+    url: openapi/express-gateway-scopes-api-openapi.yml
+- aid: express-gateway:express-gateway-users-api
+  name: Express Gateway Users API
+  description: The Users API from Express Gateway — 3 operation(s) for users.
+  humanURL: https://www.express-gateway.io/
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/express-gateway-users-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/express-gateway-agentic-access.yml
