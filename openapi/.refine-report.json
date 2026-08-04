@@ -1,0 +1,20 @@
+{
+  "provider": "express-gateway",
+  "sources": [
+    "express-gateway-apps-api-openapi.yml",
+    "express-gateway-credentials-api-openapi.yml",
+    "express-gateway-scopes-api-openapi.yml",
+    "express-gateway-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "express-gateway-apps-api-openapi.yml",
+    "express-gateway-credentials-api-openapi.yml",
+    "express-gateway-scopes-api-openapi.yml",
+    "express-gateway-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
