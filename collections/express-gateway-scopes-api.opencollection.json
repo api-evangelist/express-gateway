@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Express Gateway Admin Apps Scopes API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scopes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9876/scopes"
+          },
+          "docs": "List scopes"
+        },
+        {
+          "info": {
+            "name": "Create scopes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9876/scopes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create scopes"
+        },
+        {
+          "info": {
+            "name": "Check whether a scope exists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9876/scopes/:scope",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check whether a scope exists"
+        },
+        {
+          "info": {
+            "name": "Create a single scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:9876/scopes/:scope",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a single scope"
+        },
+        {
+          "info": {
+            "name": "Delete a scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:9876/scopes/:scope",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a scope"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
