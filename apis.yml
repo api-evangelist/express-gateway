@@ -49,6 +49,8 @@ apis:
   description: The Apps API from Express Gateway — 3 operation(s) for apps.
   humanURL: https://www.express-gateway.io/
   tags:
+  - Application
+  tags_raw:
   - Apps
   properties:
   - type: OpenAPI
@@ -76,6 +78,8 @@ apis:
   description: The Users API from Express Gateway — 3 operation(s) for users.
   humanURL: https://www.express-gateway.io/
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
