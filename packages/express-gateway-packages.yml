@@ -1,0 +1,101 @@
+generated: '2026-09-07'
+method: searched
+source: https://registry.npmjs.org/express-gateway
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  First-party published distributions for Express Gateway. Express Gateway is
+  self-hosted open-source software (Apache-2.0), so the packages below are the
+  PRODUCT ITSELF and its plugins — the gateway runtime, its bundled `eg` CLI, and
+  the official Docker image. There is no client SDK for the Admin API in any
+  registry; the CLI ships inside the main npm package and is the only first-party
+  client of that API.
+note: >-
+  Every first-party package on this list is dormant. The npm runtime last shipped
+  1.16.11 on 2021-04-29, the official Docker `latest` tag was pushed the same day,
+  and both official plugins last released in March 2019. The npm package still
+  serves ~6,300 downloads a month (last-month window ending 2026-09-06), so the
+  decay is in publishing, not in consumption.
+sdk_note: >-
+  No `SDKs` pointer is emitted in apis.yml. These are runtime and plugin
+  distributions, not client libraries for consuming the Admin API, and claiming
+  otherwise would credit Express Gateway with an SDK surface it does not publish.
+packages:
+- name: express-gateway
+  registry: npm
+  url: https://www.npmjs.com/package/express-gateway
+  official: true
+  role: runtime
+  language: javascript
+  version: 1.16.11
+  published: '2021-04-29'
+  license: Apache-2.0
+  description: >-
+    The Express Gateway runtime — a microservices API gateway built on Express.js.
+    Bundles the `eg` CLI and ships TypeScript typings (index.d.ts).
+  install: npm install -g express-gateway
+  source: https://registry.npmjs.org/express-gateway
+- name: expressgateway/express-gateway
+  registry: dockerhub
+  url: https://hub.docker.com/r/expressgateway/express-gateway
+  official: true
+  role: runtime
+  language: docker
+  version: 1.16.11
+  published: '2021-04-29'
+  description: >-
+    Official Express Gateway container image. 55 tags published; `latest` and
+    `v1.16.11` were both last pushed 2021-04-29, and the floating `master` tag
+    2021-06-01.
+  install: docker pull expressgateway/express-gateway
+  source: https://hub.docker.com/v2/repositories/expressgateway/express-gateway/tags
+- name: express-gateway-plugin-rewrite
+  registry: npm
+  url: https://www.npmjs.com/package/express-gateway-plugin-rewrite
+  official: true
+  role: plugin
+  language: javascript
+  version: 1.3.0
+  published: '2019-03-15'
+  description: Official plugin that rewrites URLs and issues redirects.
+  source: https://registry.npmjs.org/express-gateway-plugin-rewrite
+- name: express-gateway-plugin-lambda
+  registry: npm
+  url: https://www.npmjs.com/package/express-gateway-plugin-lambda
+  official: true
+  role: plugin
+  language: javascript
+  version: 1.2.0
+  published: '2019-03-15'
+  description: Official plugin that proxies requests to AWS Lambda functions.
+  source: https://registry.npmjs.org/express-gateway-plugin-lambda
+- name: express-gateway-plugin-example
+  registry: npm
+  url: https://www.npmjs.com/package/express-gateway-plugin-example
+  official: true
+  role: example
+  language: javascript
+  version: 1.0.1
+  published: '2017-09-18'
+  description: Reference plugin scaffold used to demonstrate the plugin framework.
+  source: https://registry.npmjs.org/express-gateway-plugin-example
+registries_checked:
+- registry: npm
+  result: 5 first-party packages found
+- registry: PyPI
+  result: none — Express Gateway publishes no Python distribution
+- registry: Maven Central
+  result: none
+- registry: NuGet
+  result: none
+- registry: pkg.go.dev
+  result: none
+- registry: RubyGems
+  result: none
+- registry: Packagist
+  result: none
+- registry: crates.io
+  result: none
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

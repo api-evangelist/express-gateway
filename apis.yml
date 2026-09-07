@@ -1,20 +1,34 @@
 aid: express-gateway
 name: Express Gateway
 description: >-
-  Express Gateway is an API gateway built on Express.js for managing
-  and securing microservices and APIs.
+  Express Gateway is an open-source (Apache-2.0) microservices and serverless API
+  gateway built on Express.js and Node.js. Operators install it themselves and
+  compose policies — key auth, OAuth 2.0, JWT, CORS, rate limiting, request and
+  response transforms, proxying — into pipelines declared in a single YAML config,
+  fronting their own downstream services. Its own HTTP surface is the Admin API,
+  which manages users, applications, credentials, scopes, schemas, policies,
+  endpoints and pipelines, and which binds by default to localhost:9876 rather
+  than to any host the project runs. The project is dormant: the last release
+  reached npm in April 2021.
 type: Index
 deliveryModel:
-  model: unknown
-  open_source: false
+  model: open-source-self-hosted
+  open_source: true
   commercial: false
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Open source, self-hosted — Apache-2.0, no vendor-operated endpoint
+  confidence: high
   source:
-  - openapi
-  generated: '2026-08-28'
-  method: derived
+  - https://github.com/ExpressGateway/express-gateway
+  - https://registry.npmjs.org/express-gateway
+  note: >-
+    Corrected 2026-09-07. The GitHub API reports the repository licence as
+    Apache-2.0 and the runtime is distributed on npm and Docker Hub, so
+    open_source is true, not false. There is no vendor-operated host: the Admin
+    API's documented default binding is http://localhost:9876. Commercial backing
+    ended with LunchBadger, whose site now returns 522.
+  generated: '2026-09-07'
+  method: searched
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -34,10 +48,15 @@ tags:
   - API Composition
   - API Gateway
   - BFF
+  - Open Source
+  - Microservices
+  - Authentication
+  - Node.js
+  - Reverse Proxy
 url: >-
   https://raw.githubusercontent.com/api-evangelist/express-gateway/refs/heads/main/apis.yml
 created: '2026-03-27'
-modified: '2026-04-28'
+modified: '2026-09-07'
 position: Producing
 access: Open Source
 specificationVersion: '0.23'
@@ -109,6 +128,51 @@ common:
     url: https://www.express-gateway.io/docs/
   - type: GitHubOrganization
     url: https://github.com/ExpressGateway
+  - type: APIReference
+    url: https://www.express-gateway.io/docs/admin/
+  - type: GettingStarted
+    url: https://www.express-gateway.io/getting-started/
+  - type: Support
+    url: https://github.com/ExpressGateway/express-gateway/issues
+  - type: Blog
+    url: https://www.express-gateway.io/blog/
+  - type: Roadmap
+    url: https://www.express-gateway.io/docs/roadmap/
+  - type: Packages
+    url: packages/express-gateway-packages.yml
+  - type: CLI
+    url: cli/express-gateway-cli.yml
+  - type: ChangeLog
+    url: changelog/express-gateway-changelog.yml
+  - type: Lifecycle
+    url: lifecycle/express-gateway-lifecycle.yml
+  - type: Conventions
+    url: conventions/express-gateway-conventions.yml
+  - type: Conformance
+    url: conformance/express-gateway-conformance.yml
+  - type: ErrorCatalog
+    url: errors/express-gateway-problem-types.yml
+  - type: OAuthScopes
+    url: scopes/express-gateway-scopes.yml
+  - type: DataModel
+    url: data-model/express-gateway-data-model.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/express-gateway-llms.txt
+  - type: Overlay
+    url: overlays/express-gateway-admin-api-overlay.yaml
+  - type: Plans
+    url: plans/express-gateway-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/express-gateway-rate-limits.yml
+  - type: X-MCPServerCandidate
+    url: mcp/express-gateway-mcp.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-07'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v3

@@ -1,0 +1,88 @@
+generated: '2026-09-07'
+method: searched
+source: https://www.express-gateway.io/docs/credential-management/
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Express Gateway's scope model. This artifact is unusual for its type: there is
+  no fixed catalog of scope strings to enumerate, because Express Gateway does not
+  define scopes — the OPERATOR does. A scope in Express Gateway is a free-form tag
+  the operator declares on the gateway, attaches to API endpoints, and grants to
+  consumer credentials. What the provider publishes is the mechanism, and that is
+  what is recorded here.
+docs: https://www.express-gateway.io/docs/credential-management/
+model: operator-defined
+scope_count: 0
+scope_count_note: >-
+  Zero is correct and is not a gap. There is no vendor-published scope list to
+  count; every scope in a running gateway was named by whoever configured it.
+mechanism:
+  declaration:
+    detail: Scopes are declared on the gateway before they can be granted.
+    admin_api:
+    - POST /scopes (create in bulk)
+    - PUT /scopes/{scope} (create one)
+    - GET /scopes (list)
+    - GET /scopes/{scope} (existence check, 404 when absent)
+    - DELETE /scopes/{scope}
+    cli:
+    - eg scopes create
+    - eg scopes list
+    - eg scopes info
+    - eg scopes remove
+    docs: https://www.express-gateway.io/docs/admin/scopes/
+  grant:
+    detail: >-
+      Scopes are granted to a credential, not to a user or app directly. Any
+      credential type — basic-auth, key-auth or oauth2 — can carry scopes.
+    admin_api:
+    - PUT /credentials/{type}/{id}/scopes (replace the whole set)
+    - PUT /credentials/{type}/{id}/scopes/{scope} (add one)
+    - DELETE /credentials/{type}/{id}/scopes/{scope} (remove one)
+    cli:
+    - eg credential:scopes set
+    - eg credential:scopes add
+    - eg credential:scopes remove
+    docs: https://www.express-gateway.io/docs/credential-management/
+  enforcement:
+    detail: >-
+      An API endpoint is marked with the scopes it requires; a request carrying a
+      credential without a matching scope is rejected by the authorization policy.
+      Scopes work across all three credential types, so the same tag governs key
+      auth and OAuth 2.0 alike.
+    docs: https://www.express-gateway.io/docs/core-concepts/
+oauth2:
+  standard: RFC 6749
+  authorization_endpoint: /oauth2/authorize
+  token_endpoint: /oauth2/token
+  method_note: >-
+    Both endpoints accept POST only. Express Gateway acts as both authorization
+    server and resource server.
+  grants:
+  - authorization_code
+  - implicit
+  - client_credentials
+  - password
+  scope_parameter: >-
+    The client passes `scope` in the authorization request; the consent UI prompts
+    the user to allow the client access to those scopes, and the resulting token
+    carries them.
+  docs: https://www.express-gateway.io/docs/policies/oauth2/
+  discovery:
+    oauth_authorization_server_metadata: false
+    openid_configuration: false
+    detail: >-
+      No RFC 8414 authorization-server metadata and no OpenID configuration
+      document. Probed on www.express-gateway.io and express-gateway.io — both
+      /.well-known/oauth-authorization-server and
+      /.well-known/openid-configuration returned 404. This is expected: the
+      authorization server is the operator's own gateway instance, not a host
+      Express Gateway runs.
+  openid_connect:
+    supported: false
+    detail: "\"OpenID 1.0 Policy\" is listed on the project roadmap as short-term work that never shipped."
+    docs: https://www.express-gateway.io/docs/roadmap/
+scopes: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

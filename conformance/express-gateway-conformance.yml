@@ -1,0 +1,112 @@
+generated: '2026-09-07'
+method: searched
+source: https://www.express-gateway.io/docs/policies/
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Standards conformance for Express Gateway. An important scope distinction runs
+  through this file: almost everything Express Gateway conforms to, it conforms
+  to as a GATEWAY — the standards are implemented by its policies on behalf of
+  the operator's downstream APIs. Its own Admin API is a plain JSON/HTTP surface
+  with an API-key header and conforms to no cross-cutting profile beyond that.
+  Each entry below records which of the two it is.
+note: >-
+  No certifications, audit reports or compliance programme were found. Express
+  Gateway is an unfunded open-source project (its former sponsor LunchBadger is
+  gone — https://www.lunchbadger.com/privacy/ now returns 522), it publishes no
+  trust centre, no security.txt and no SECURITY.md. No Compliance pointer is
+  emitted in apis.yml, because there is no published compliance programme to
+  point at.
+conformance:
+- id: oauth2
+  standard: OAuth 2.0 (RFC 6749)
+  scope: gateway-policy
+  conforms: true
+  evidence: https://www.express-gateway.io/docs/policies/oauth2/
+  detail: >-
+    The oauth2 policy makes Express Gateway both authorization server and
+    resource server. It exposes POST /oauth2/authorize and POST /oauth2/token and
+    implements the authorization code, implicit, client credentials and password
+    credentials grants. The docs cite RFC 6749 by name.
+- id: oauth2-introspection
+  standard: OAuth 2.0 Token Introspection (RFC 7662)
+  scope: gateway-policy
+  conforms: true
+  evidence: https://www.express-gateway.io/docs/policies/oauth2-introspection/
+  detail: >-
+    A dedicated introspection policy lets the gateway act as a resource server
+    against an external authorization server.
+- id: jwt
+  standard: JSON Web Token (RFC 7519)
+  scope: gateway-policy
+  conforms: true
+  evidence: https://www.express-gateway.io/docs/policies/jwt/
+  detail: The jwt policy issues and verifies JWTs; the oauth2 policy signs its tokens with it.
+- id: http-basic-auth
+  standard: HTTP Basic Authentication (RFC 7617)
+  scope: gateway-policy
+  conforms: true
+  evidence: https://www.express-gateway.io/docs/policies/basic-authorization/
+  detail: The basic-auth policy authenticates consumers with username and password.
+- id: cors
+  standard: Cross-Origin Resource Sharing (W3C/Fetch)
+  scope: gateway-policy
+  conforms: true
+  evidence: https://www.express-gateway.io/docs/policies/cors/
+  detail: The cors policy configures CORS headers on proxied endpoints.
+- id: api-key-auth
+  standard: API key authentication (no RFC; header-borne key pair)
+  scope: admin-api
+  conforms: true
+  evidence: https://www.express-gateway.io/docs/admin/
+  detail: >-
+    The documented way to secure the Admin API is to front it with the key-auth
+    policy and send "Authorization: apikey {keyId}:{keySecret}".
+- id: rfc9457
+  standard: RFC 9457 Problem Details for HTTP APIs
+  scope: admin-api
+  conforms: false
+  evidence: https://www.express-gateway.io/docs/admin/users/
+  detail: >-
+    Admin API responses are bare JSON objects with no problem+json envelope and
+    no documented error schema.
+- id: idempotency
+  standard: Idempotency-Key request replay protection
+  scope: admin-api
+  conforms: false
+  evidence: https://www.express-gateway.io/docs/admin/
+  detail: No idempotency key, request-id or replay-protection header is documented.
+- id: pagination
+  standard: Cursor/key-based pagination
+  scope: admin-api
+  conforms: partial
+  evidence: https://www.express-gateway.io/docs/admin/users/
+  detail: >-
+    List responses include a "nextKey" field alongside the collection array, but
+    no request parameter, page size, or continuation semantics are documented.
+- id: openapi
+  standard: OpenAPI Specification
+  scope: admin-api
+  conforms: false
+  evidence: https://github.com/ExpressGateway/express-gateway
+  detail: >-
+    No OpenAPI or Swagger document is published. The repository tree (425 files)
+    contains no spec file, and /openapi.json, /openapi.yaml, /swagger.json and
+    /api-docs all 404 on every host. OpenAPI ingest is listed on the project
+    roadmap as an unstarted backlog item.
+- id: semver
+  standard: Semantic Versioning 2.0.0
+  scope: distribution
+  conforms: true
+  evidence: https://github.com/ExpressGateway/express-gateway/releases
+  detail: Releases and npm versions follow MAJOR.MINOR.PATCH (current 1.16.11).
+domain_standard:
+  applicable: false
+  note: >-
+    The API-gateway / reverse-proxy market has no domain contract standard a
+    product declares inside its own API (no SCIM URN, OData $metadata, OpenRTB,
+    Sparkplug, HL7, ISO 20022 or comparable). Nothing is asserted here rather than
+    inventing a conformance to fill the slot.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,154 @@
+generated: '2026-09-07'
+method: searched
+source: https://www.express-gateway.io/docs/admin/
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Cross-cutting runtime semantics of the Express Gateway Admin API, read from the
+  Admin API Reference and the policies reference. Express Gateway is self-hosted
+  software: the Admin API runs on the operator's own machine, so several
+  conventions that a hosted vendor would define (rate limits, versioned base
+  paths, request-id tracing) are simply absent or are left to the operator.
+authentication:
+  style: api-key
+  detail: >-
+    The Admin API ships with no authentication at all — it binds to
+    http://localhost:9876 and the documentation states plainly that public
+    exposure "is not usually a great idea". The documented way to secure it is to
+    proxy it through Express Gateway itself with the key-auth policy, after which
+    clients send "Authorization: apikey {keyId}:{keySecret}".
+  docs: https://www.express-gateway.io/docs/admin/
+  see: authentication/express-gateway-authentication.yml
+idempotency:
+  coverage: none
+  supported: false
+  header: null
+  scope: []
+  retention: null
+  detail: >-
+    No Idempotency-Key header, request key, or replay-protection mechanism is
+    documented anywhere in the Admin API Reference. A retried POST /users or
+    POST /credentials will be processed again. The one partial mitigation is that
+    usernames are unique identifiers, so a repeated createUser with the same
+    username fails rather than duplicating — but that is a uniqueness constraint,
+    not an idempotency contract, and it does not extend to credentials, apps or
+    scopes.
+  docs: https://www.express-gateway.io/docs/admin/
+reversibility:
+  grade: documented
+  detail: >-
+    Express Gateway separates deactivation from deletion, and deactivation is the
+    reversible path. Every consumer entity — user, app, credential — has a
+    dedicated status operation that flips it between active and inactive, and the
+    CLI mirrors it as `eg <entity> activate` / `eg <entity> deactivate`. Deletion
+    has no reversal operation at all. No time window is stated anywhere in the
+    documentation for either path, so this grades `documented` and not
+    `verified`: an agent can learn that deactivation is undoable, but not how long
+    it has.
+  surfaces:
+  - write: createUser / updateUser
+    reversal: setUserStatus
+    operationId: setUserStatus
+    call: 'PUT /users/{id}/status with {"status": false}'
+    window: null
+    docs: https://www.express-gateway.io/docs/admin/users/
+  - write: deleteUser
+    reversal: null
+    operationId: null
+    window: null
+    detail: DELETE /users/{id} returns 204 and is irreversible. No restore, undelete or trash operation exists.
+    docs: https://www.express-gateway.io/docs/admin/users/
+  - write: createApp / updateApp
+    reversal: setAppStatus
+    operationId: setAppStatus
+    call: 'PUT /apps/{id}/status with {"status": false}'
+    window: null
+    docs: https://www.express-gateway.io/docs/admin/apps/
+  - write: deleteApp
+    reversal: null
+    operationId: null
+    window: null
+    detail: Irreversible.
+    docs: https://www.express-gateway.io/docs/admin/apps/
+  - write: createCredential
+    reversal: setCredentialStatus
+    operationId: setCredentialStatus
+    call: 'PUT /credentials/{type}/{id}/status'
+    window: null
+    docs: https://www.express-gateway.io/docs/admin/credentials/
+  - write: addCredentialScope
+    reversal: removeCredentialScope
+    operationId: removeCredentialScope
+    window: null
+    detail: >-
+      Scope grants are symmetric — adding and removing a scope on a credential are
+      two operations on the same path, so a mis-grant is fully undoable.
+    docs: https://www.express-gateway.io/docs/admin/credentials/
+  - write: deleteScope
+    reversal: createScope
+    operationId: createScope
+    window: null
+    detail: >-
+      A deleted scope can be recreated by name (PUT /scopes/{scope}), but the
+      credential grants that referenced it are not restored by doing so.
+    docs: https://www.express-gateway.io/docs/admin/scopes/
+dry_run_mode:
+  supported: false
+  detail: No preview, validate-only, or dry-run parameter is documented on any Admin API operation.
+pagination:
+  style: key-based
+  supported: partial
+  request_params: []
+  response_fields:
+  - nextKey
+  detail: >-
+    List responses wrap the collection in a named array and append a "nextKey"
+    field — GET /users returns a "users" array plus a "nextKey" field. The documentation
+    shows the field but never documents a request parameter to send it back, a
+    page size, or what terminates the sequence, so a client cannot page reliably
+    from the published material alone.
+  docs: https://www.express-gateway.io/docs/admin/users/
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+  detail: No free-form metadata or custom-attribute field is documented on any entity.
+request_tracing:
+  supported: false
+  detail: >-
+    The Admin API documents no request-id or correlation header. Express Gateway's
+    own `log` policy can emit request logs for proxied traffic, but that is a
+    gateway policy for downstream APIs, not an Admin API convention.
+  docs: https://www.express-gateway.io/docs/policies/log/
+versioning:
+  style: semver-artifact
+  in_url: false
+  detail: >-
+    The Admin API carries no version segment or version header — paths are bare
+    (/users, /apps, /credentials, /scopes). Versioning happens at the software
+    level instead: the runtime is released under semantic versioning (current
+    1.16.11) and the documentation site is stamped v1.16.3. Which Admin API shape
+    you get is decided by which build of the gateway you installed.
+  docs: https://github.com/ExpressGateway/express-gateway/releases
+  see: lifecycle/express-gateway-lifecycle.yml
+error_envelope:
+  format: bare-json
+  problem_json: false
+  detail: >-
+    Errors are not documented. The Admin API Reference shows success bodies only;
+    the sole error status named anywhere is a 404 on GET /scopes/{scope}. There is
+    no documented error schema, error code registry, or problem+json envelope.
+  see: errors/express-gateway-problem-types.yml
+rate_limit_signaling:
+  supported: false
+  detail: >-
+    The Admin API returns no rate-limit headers and enforces no limits — it is a
+    local administrative interface on the operator's own host. Express Gateway
+    ships a rate-limit POLICY the operator configures for their downstream APIs
+    (max, windowMs, rateLimitBy), and that policy is what would emit limits, on
+    traffic that is not the Admin API.
+  docs: https://www.express-gateway.io/docs/policies/rate-limiter/
+  see: rate-limits/express-gateway-rate-limits.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

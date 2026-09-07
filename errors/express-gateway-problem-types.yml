@@ -1,0 +1,69 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/_original/express-gateway-openapi.yml + https://www.express-gateway.io/docs/admin/
+provider: Express Gateway
+providerId: express-gateway
+format: none
+description: >-
+  Error catalog for the Express Gateway Admin API. It is deliberately short,
+  because Express Gateway publishes almost nothing about its error surface: the
+  Admin API Reference documents request and success bodies only, and names a
+  single failure status across the entire reference. No error-code registry, no
+  error schema, and no RFC 9457 problem+json envelope exists.
+envelope:
+  format: bare-json
+  problem_json: false
+  media_type: application/json
+  fields: []
+  detail: >-
+    Failures return a plain JSON body. Its shape is not documented, so a client
+    cannot bind to it. Success bodies are documented in full; failure bodies are not.
+note: >-
+  Only the entries marked `documented: true` come from the provider. The rest are
+  the conventional HTTP semantics an implementer would expect from the documented
+  operations, and are marked `documented: false` so nobody mistakes them for a
+  published contract. Nothing here is asserted as a provider-published error code.
+problem_types:
+- status: 404
+  title: Not Found
+  documented: true
+  operations:
+  - getScope
+  detail: >-
+    GET /scopes/{scope} is the one operation whose reference documents a failure
+    status — it answers 404 when the scope does not exist, making the endpoint an
+    existence check.
+  evidence: https://www.express-gateway.io/docs/admin/scopes/
+- status: 401
+  title: Unauthorized
+  documented: false
+  detail: >-
+    Expected only when the Admin API has been fronted by Express Gateway with the
+    key-auth policy and the Authorization header is missing or invalid. An Admin
+    API on its default localhost binding is unauthenticated and will not return
+    this.
+  evidence: https://www.express-gateway.io/docs/admin/
+- status: 400
+  title: Bad Request
+  documented: false
+  detail: >-
+    Expected on schema-validation failure. Express Gateway validates all
+    configuration and model input against JSON Schema, and the schemas are
+    themselves queryable through the Admin API /schemas surface, but no validation
+    error body is documented.
+  evidence: https://www.express-gateway.io/docs/admin/schemas/
+- status: 409
+  title: Conflict
+  documented: false
+  detail: >-
+    Expected on a duplicate username, since the reference calls username the
+    "unique identifier of user". The status and body are not stated.
+  evidence: https://www.express-gateway.io/docs/admin/users/
+gaps:
+- No error-code registry or numeric error taxonomy is published.
+- No error response schema appears in any published document.
+- 4xx/5xx responses are absent from the Admin API Reference for 24 of 25 operations.
+- No remediation guidance is published for any failure.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

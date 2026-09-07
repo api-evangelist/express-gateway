@@ -4,87 +4,73 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Express Gateway
 providerId: express-gateway
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-07'
+generated: '2026-09-07'
+method: searched
+source: https://www.express-gateway.io/docs/policies/rate-limiter/
 tags:
-  - API Composition
-  - API Gateway
-  - BFF
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Express Gateway API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Express Gateway
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Express Gateway
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Express Gateway
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Express Gateway
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Express Gateway
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+- API Composition
+- API Gateway
+- BFF
+- Rate Limiting
+description: >-
+  Express Gateway imposes no rate limits on its own API, and there is nobody to
+  impose them: the Admin API runs on the operator's own machine, bound by default
+  to http://localhost:9876. Express Gateway is instead a producer OF rate limits —
+  it ships a rate-limit policy the operator configures for their downstream APIs.
+  That mechanism is recorded below and must not be read as limits Express Gateway
+  applies to callers.
+limit_count: 0
+limits: []
+headers: {}
+responseCodes: {}
+limit_count_note: >-
+  Zero is the measurement, not a gap. No documented limit, quota, burst ceiling or
+  throttle applies to the Express Gateway Admin API, and the Admin API returns no
+  X-RateLimit-*, RateLimit-* or Retry-After headers.
+supersedes: >-
+  This file replaces a bulk-sweep scaffold dated 2026-05-04 that listed five
+  invented limits (10/100/1000 rpm across Free / Professional / Enterprise tiers
+  with 1,000 and 100,000 monthly quotas) and five invented response headers.
+  Express Gateway has no tiers and publishes no limits; the scaffold was a
+  fabrication and has been removed.
+rate_limiting_capability:
+  role: producer
+  policy: rate-limit
+  docs: https://www.express-gateway.io/docs/policies/rate-limiter/
+  detail: >-
+    The rate-limit policy throttles requests to an API endpoint the gateway
+    fronts. Every value is set by the operator in gateway.config.yml; Express
+    Gateway ships no default limit of its own.
+  parameters:
+  - name: max
+    description: Maximum number of requests allowed in the window.
+    default: null
+  - name: windowMs
+    description: Length of the window in milliseconds.
+    default: 60000
+  - name: rateLimitBy
+    description: >-
+      The egContext expression the counter is keyed on — for example
+      "${req.hostname}" to limit per host, or a consumer identifier to limit per
+      authenticated user.
+    default: null
+  scoping: >-
+    The policy can be attached to all API hosts, to a single host through a
+    hostMatch condition, or keyed to authenticated consumers, giving per-host,
+    per-endpoint and per-consumer scoping.
+  clustering_caveat: >-
+    The FAQ states Express Gateway is not fully cluster aware and that there are
+    no global counters, so rate-limit counts are per instance unless the operator
+    solves that themselves.
+  clustering_evidence: https://www.express-gateway.io/docs/faq/
+evidence:
+- url: https://www.express-gateway.io/docs/admin/
+  status: 200
+  note: Admin API Reference documents no limits and no rate-limit headers.
+- url: https://www.express-gateway.io/docs/policies/rate-limiter/
+  status: 200
+  note: The rate-limit policy — operator-configured, applied to downstream APIs.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

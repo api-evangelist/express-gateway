@@ -1,0 +1,99 @@
+generated: '2026-09-07'
+method: searched
+source: https://github.com/ExpressGateway/express-gateway/releases
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Versioning, release, deprecation and support posture for Express Gateway. This
+  is self-hosted open-source software, so several lifecycle surfaces a hosted
+  vendor would publish (status page, SLA, sunset headers on a live API) do not
+  apply — the operator runs the gateway and owns its uptime.
+maturity: dormant
+maturity_evidence: >-
+  Last npm release 1.16.11 on 2021-04-29; last tagged GitHub release v1.16.9 on
+  2019-09-22; official Docker `latest` tag last pushed 2021-04-29; documentation
+  site stamped v1.16.3 with a 2021 copyright footer; 78 open issues. The
+  repository is NOT archived and was last pushed 2024-05-14, and npm still serves
+  ~6,300 downloads a month, so the project is dormant rather than formally
+  retired. Its former commercial sponsor, LunchBadger, is gone — the privacy
+  policy the site footer still links to (https://www.lunchbadger.com/privacy/)
+  returns HTTP 522.
+versioning:
+  scheme: semver
+  policy_url: https://github.com/ExpressGateway/express-gateway/releases
+  in_api: false
+  detail: >-
+    The runtime is versioned with semantic versioning (48 published versions since
+    2017-06-29). The Admin API itself carries no version segment or version
+    header — the gateway build you installed decides its shape.
+releases:
+  url: https://github.com/ExpressGateway/express-gateway/releases
+  count: 48
+  first: '2017-06-29'
+  latest: '2021-04-29'
+  see: changelog/express-gateway-changelog.yml
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  detail: >-
+    No deprecation policy, no notice period, and no RFC 8594 Sunset/Deprecation
+    header support is documented. Deprecation is handled ad hoc in release notes
+    and in the docs: the `headers` policy is labelled "(deprecated)" in the
+    policies reference in favour of the request/response transformer policies, and
+    v1.16.3 removed the undocumented `plugins` admin endpoint outright. Because
+    there is no published policy, no `Deprecation` pointer is emitted in apis.yml.
+  deprecated_items:
+  - item: headers policy
+    status: deprecated
+    replacement: request-transformer / response-transformer policies
+    evidence: https://www.express-gateway.io/docs/policies/headers/
+  - item: plugins admin endpoint
+    status: removed
+    removed_in: 1.16.3
+    evidence: https://github.com/ExpressGateway/express-gateway/releases
+status_page:
+  published: false
+  applicable: false
+  detail: >-
+    Not applicable. Express Gateway hosts nothing — there is no service whose
+    availability could be reported. No `StatusPage` pointer is emitted.
+sla:
+  published: false
+  detail: No SLA. The project describes itself as community driven and community supported.
+support:
+  model: community
+  channels:
+  - name: GitHub issue queue
+    url: https://github.com/ExpressGateway/express-gateway/issues
+    status: 200
+  - name: Gitter chat
+    url: https://gitter.im/ExpressGateway/express-gateway
+    status: 200
+    note: Returns a single-page-app shell; room activity could not be confirmed anonymously.
+  - name: Stack Overflow tag
+    url: https://stackoverflow.com/questions/tagged/express-gateway
+    status: 403
+    note: Stack Overflow bot-challenges anonymous crawlers; the tag page exists.
+  - name: Feathub feature requests
+    url: https://feathub.com/ExpressGateway/express-gateway
+    status: 200
+    note: DEAD — the 200 body is a parked-domain redirect stub to /lander, not the feature board. Still linked from the roadmap and resources pages.
+security_lifecycle:
+  security_policy: false
+  detail: >-
+    No SECURITY.md in the repository (both root and .github paths 404), no
+    /.well-known/security.txt, no disclosure page and no bug-bounty programme.
+    See security/express-gateway-domain-security.yml.
+roadmap:
+  url: https://www.express-gateway.io/docs/roadmap/
+  status: 200
+  detail: >-
+    A real, structured roadmap organised into Backlog / Short Term / Medium Term /
+    Long Term. It is unmaintained relative to reality — it still lists the Lambda
+    plugin and the request/response transformers as backlog items although both
+    shipped, and it lists OpenAPI ingest, GraphQL, clustering and an ingress
+    controller as future work that never arrived.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

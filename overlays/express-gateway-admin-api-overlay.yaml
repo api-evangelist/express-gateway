@@ -1,0 +1,122 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Express Gateway Admin API
+  version: 1.0.0
+extends: ../openapi/_original/express-gateway-openapi.yml
+x-provenance:
+  generated: '2026-09-07'
+  method: generated
+  source: >-
+    Composed from this repository's artifacts (authentication/, conventions/,
+    lifecycle/, agentic-access/, data-model/) and the Express Gateway
+    documentation at https://www.express-gateway.io/docs/admin/.
+  note: >-
+    This overlay records API Evangelist's additions and never mutates the
+    underlying document. IMPORTANT PROVENANCE CAVEAT: the document it extends is
+    itself NOT provider-published. Express Gateway publishes no OpenAPI — the
+    GitHub repository tree contains no spec file and /openapi.json, /openapi.yaml,
+    /swagger.json and /api-docs all return 404 on every host. The base document
+    was written from the published Admin API Reference, and the roadmap still
+    lists OpenAPI support as unstarted backlog work.
+actions:
+- target: $.info
+  description: Record the true provenance and the operating posture of this API on the document itself.
+  update:
+    x-apis-io-provenance:
+      contract-published-by-provider: false
+      authored-from: https://www.express-gateway.io/docs/admin/
+      probed: '2026-09-07'
+    x-deployment: self-hosted
+    x-maturity: dormant
+    x-maturity-evidence: >-
+      Latest release 1.16.11 published to npm 2021-04-29; latest tagged GitHub
+      release v1.16.9, 2019-09-22; documentation stamped v1.16.3.
+    x-license:
+      name: Apache-2.0
+      url: https://github.com/ExpressGateway/express-gateway/blob/master/LICENSE
+- target: $.info
+  description: Link the external documentation the specification was written from.
+  update:
+    x-documentation:
+      admin-api: https://www.express-gateway.io/docs/admin/
+      cli: https://www.express-gateway.io/docs/cli/
+      policies: https://www.express-gateway.io/docs/policies/
+      getting-started: https://www.express-gateway.io/getting-started/
+- target: $.servers
+  description: >-
+    Explain the localhost server rather than replace it. http://localhost:9876 is
+    the correct, documented default for self-hosted software and is not a
+    placeholder; a public host would be wrong here.
+  update:
+  - url: http://localhost:9876
+    description: >-
+      Default Admin API host. Express Gateway is self-hosted: this server exists
+      only on the operator's own machine. The documentation states public exposure
+      "is not usually a great idea"; the documented way to expose it is to front
+      it with Express Gateway under the key-auth policy, at which point the
+      operator's own hostname replaces this one.
+    x-non-routable: true
+    x-templated-by-operator: true
+- target: $.paths.*.*
+  description: Record that no rate limits or idempotency semantics apply to any operation.
+  update:
+    x-rate-limited: false
+    x-idempotency-key: false
+- target: $.paths['/users/{id}/status'].put
+  description: Mark the reversible status operations as the documented reversal path.
+  update:
+    x-reversibility:
+      role: reversal
+      reverses: createUser
+      window: null
+      note: No time window is stated in the documentation.
+- target: $.paths['/apps/{id}/status'].put
+  description: Mark the reversible status operations as the documented reversal path.
+  update:
+    x-reversibility:
+      role: reversal
+      reverses: createApp
+      window: null
+- target: $.paths['/credentials/{type}/{id}/status'].put
+  description: Mark the reversible status operations as the documented reversal path.
+  update:
+    x-reversibility:
+      role: reversal
+      reverses: createCredential
+      window: null
+- target: $.paths['/users/{id}'].delete
+  description: Flag irreversible deletes so an agent knows there is no undo.
+  update:
+    x-reversibility:
+      role: irreversible
+      note: No restore, undelete or trash operation exists. Deactivate via PUT /users/{id}/status instead.
+- target: $.paths['/apps/{id}'].delete
+  description: Flag irreversible deletes so an agent knows there is no undo.
+  update:
+    x-reversibility:
+      role: irreversible
+      note: No restore operation exists. Deactivate via PUT /apps/{id}/status instead.
+- target: $.paths['/scopes/{scope}'].delete
+  description: Flag scope deletion as partially reversible.
+  update:
+    x-reversibility:
+      role: partial
+      reversal: createScope
+      note: The scope can be recreated by name, but credential grants that referenced it are not restored.
+- target: $.paths['/users'].get
+  description: Record the undocumented key-based pagination field observed in the reference.
+  update:
+    x-pagination:
+      style: key-based
+      response-field: nextKey
+      request-parameter: null
+      note: The reference shows nextKey in the response but documents no way to send it back.
+- target: $.components.securitySchemes.KeyAuth
+  description: Point the security scheme at the policy documentation that defines it.
+  update:
+    x-docs: https://www.express-gateway.io/docs/policies/key-authorization/
+    x-applies-when: >-
+      Only when the operator has fronted the Admin API with Express Gateway and
+      enabled the key-auth policy. A default Admin API on localhost is
+      unauthenticated, which is why the document also declares an empty security
+      requirement.

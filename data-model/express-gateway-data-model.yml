@@ -1,0 +1,134 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/_original/express-gateway-openapi.yml + https://www.express-gateway.io/docs/admin/
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Entity-relationship graph for the Express Gateway Admin API, derived from the
+  Admin API Reference's documented request/response bodies and the "Core Entities"
+  section of the reference. The published OpenAPI in this repository has no
+  components.schemas block — every schema is `type: object` with no properties —
+  so the fields below were read from the documented example payloads, not from a
+  spec.
+entities:
+- name: User
+  description: >-
+    The main API consumer entity, typically representing a person. Identified by a
+    UUID `id` and by a unique `username`; both are accepted wherever {id} appears.
+  path: /users
+  identifier: id
+  identifier_format: uuid
+  natural_key: username
+  fields:
+  - name: id
+    type: string
+    format: uuid
+    note: 1-1 with username.
+  - name: username
+    type: string
+    required: true
+    note: Unique identifier of the user.
+  - name: firstname
+    type: string
+    required: true
+  - name: lastname
+    type: string
+    required: true
+  - name: email
+    type: string
+    required: false
+  - name: redirectUri
+    type: string
+    required: false
+    note: OAuth 2.0 related.
+  - name: isActive
+    type: boolean
+  - name: createdAt
+    type: string
+  - name: updatedAt
+    type: string
+  evidence: https://www.express-gateway.io/docs/admin/users/
+- name: App
+  description: >-
+    A non-human API consumer — a mobile app or service. Apps always belong to a
+    User.
+  path: /apps
+  identifier: id
+  identifier_format: uuid
+  evidence: https://www.express-gateway.io/docs/admin/apps/
+- name: Credential
+  description: >-
+    A container for a consumer's authentication or authorization secrets. Three
+    types are provided by the authorization policies — basic-auth (password),
+    key-auth (keyId/keySecret pair) and oauth2 (client secret or user password).
+    A consumer may hold only ONE basic-auth and ONE oauth2 credential, but MANY
+    key-auth credentials.
+  path: /credentials
+  identifier: id
+  composite_key:
+  - type
+  - id
+  note: Addressed as /credentials/{type}/{id}.
+  types:
+  - basic-auth
+  - key-auth
+  - oauth2
+  evidence: https://www.express-gateway.io/docs/admin/credentials/
+- name: Scope
+  description: >-
+    A free-form tag used for permissions. Marks API endpoints and is granted to
+    credentials. The scope string is its own identifier.
+  path: /scopes
+  identifier: scope
+  identifier_format: string
+  evidence: https://www.express-gateway.io/docs/admin/scopes/
+- name: Token
+  description: >-
+    OAuth 2.0 access and refresh tokens issued by the gateway. Managed through the
+    CLI (`eg tokens revoke`) and configured in system.config.yml, not through a
+    documented Admin API collection.
+  path: null
+  evidence: https://www.express-gateway.io/docs/configuration/system.config.yml/accessTokens/
+- name: Schema
+  description: >-
+    JSON Schemas validating gateway configuration and models. Queryable through
+    the Admin API and extensible through plugins.
+  path: /schemas
+  evidence: https://www.express-gateway.io/docs/admin/schemas/
+relationships:
+- from: User
+  to: App
+  type: has_many
+  via: apps belong to a user
+  evidence: https://www.express-gateway.io/docs/admin/
+- from: App
+  to: User
+  type: belongs_to
+  via: owning user
+- from: User
+  to: Credential
+  type: has_many
+  via: /credentials/{consumerId}
+  note: At most one basic-auth and one oauth2 credential; many key-auth credentials.
+- from: App
+  to: Credential
+  type: has_many
+  via: /credentials/{consumerId}
+- from: Credential
+  to: Scope
+  type: has_many
+  via: /credentials/{type}/{id}/scopes
+- from: Scope
+  to: Credential
+  type: has_many
+  via: scope grants
+id_prefixes: []
+id_prefix_note: >-
+  No typed or prefixed identifiers. Users and apps use bare UUIDs, scopes are the
+  string itself; nothing in a payload tells you which entity an id belongs to.
+gaps:
+- No components.schemas exist in any published or derived spec — no field-level contract for App, Credential, Scope or Token.
+- The Admin API's configuration half (policies, pipelines, service endpoints, API endpoints) is documented as endpoints but its object model is defined in gateway.config.yml, not in the API.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,127 @@
+generated: '2026-09-07'
+method: searched
+source: https://www.express-gateway.io/docs/cli/
+provider: Express Gateway
+providerId: express-gateway
+name: eg
+description: >-
+  `eg` is Express Gateway's first-party CLI and the only first-party client of the
+  Admin API — the documentation states plainly that "The Express Gateway CLI
+  utilizes the Admin API". It ships inside the main `express-gateway` npm package
+  rather than as a separate binary, so installing the gateway installs the CLI.
+docs: https://www.express-gateway.io/docs/cli/
+install:
+- method: npm
+  command: npm install -g express-gateway
+  note: Installs the gateway runtime and the `eg` command together.
+- method: docker
+  command: docker run -it expressgateway/express-gateway eg
+  note: The image ships the same CLI.
+configuration:
+  file: system.config.yml
+  key: cli.url
+  default: http://localhost:9876
+  detail: >-
+    The CLI targets the Admin API through the `cli.url` value in system.config.yml.
+    Pointing it at a secured, proxied Admin API is done by changing that URL.
+  docs: https://www.express-gateway.io/docs/admin/
+command_groups:
+- group: eg
+  description: Base command and interactive shell.
+  docs: https://www.express-gateway.io/docs/cli/eg/
+- group: eg users
+  description: Manage user consumers.
+  commands:
+  - eg users create
+  - eg users list
+  - eg users info
+  - eg users update
+  - eg users activate
+  - eg users deactivate
+  - eg users remove
+  docs: https://www.express-gateway.io/docs/cli/users/
+  admin_api: /users
+- group: eg apps
+  description: Manage application consumers.
+  commands:
+  - eg apps create
+  - eg apps list
+  - eg apps info
+  - eg apps update
+  - eg apps activate
+  - eg apps deactivate
+  - eg apps remove
+  docs: https://www.express-gateway.io/docs/cli/apps/
+  admin_api: /apps
+- group: eg credentials
+  description: Issue and manage basic-auth, key-auth and oauth2 credentials.
+  commands:
+  - eg credentials create
+  - eg credentials list
+  - eg credentials info
+  - eg credentials activate
+  - eg credentials deactivate
+  docs: https://www.express-gateway.io/docs/cli/credentials/
+  admin_api: /credentials
+- group: eg credential:scopes
+  description: Grant and revoke scopes on a credential.
+  commands:
+  - eg credential:scopes add
+  - eg credential:scopes remove
+  - eg credential:scopes set
+  docs: https://www.express-gateway.io/docs/cli/credential-scopes/
+  admin_api: /credentials/{type}/{id}/scopes
+- group: eg scopes
+  description: Declare and remove gateway scopes.
+  commands:
+  - eg scopes create
+  - eg scopes list
+  - eg scopes info
+  - eg scopes remove
+  docs: https://www.express-gateway.io/docs/cli/scopes/
+  admin_api: /scopes
+- group: eg plugins
+  description: Install and configure gateway plugins.
+  commands:
+  - eg plugin install
+  - eg plugin configure
+  docs: https://www.express-gateway.io/docs/cli/plugins/
+- group: eg tokens
+  description: Revoke issued OAuth 2.0 tokens.
+  commands:
+  - eg tokens revoke
+  docs: https://www.express-gateway.io/docs/cli/tokens/
+- group: eg gateway
+  description: Scaffold a new gateway project (Yeoman generator).
+  commands:
+  - eg gateway create
+  docs: https://www.express-gateway.io/docs/cli/gateway/
+- group: migrate
+  description: Migrate configuration between gateway versions.
+  docs: https://www.express-gateway.io/docs/cli/migrate/
+key_flows:
+- name: Stand up a new gateway
+  steps:
+  - eg gateway create
+  - npm start
+- name: Onboard an API consumer
+  steps:
+  - eg users create
+  - eg apps create
+  - eg credentials create -t key-auth -c <consumerId>
+  - eg credential:scopes add
+- name: Cut off a compromised consumer
+  steps:
+  - eg credentials deactivate
+  - eg users deactivate
+  note: Deactivation is reversible with the matching `activate` command; `remove` is not.
+coverage_note: >-
+  The CLI covers the consumer-management half of the Admin API (users, apps,
+  credentials, scopes, tokens) plus plugin and project scaffolding. It does not
+  expose the schemas, policies, service-endpoint, API-endpoint or pipeline
+  sections of the Admin API — those are managed through gateway.config.yml. The
+  roadmap lists "decouple CLI from config files (use Admin API only)" as an
+  unstarted backlog item.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

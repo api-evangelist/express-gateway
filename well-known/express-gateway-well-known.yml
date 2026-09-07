@@ -1,0 +1,63 @@
+generated: '2026-09-07'
+method: probed
+source: live HTTPS probes of every host this record knows
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Probe of the RFC-standard /.well-known/ discovery surface on every host this
+  record knows. Express Gateway serves none of them — every named path returned
+  404 with the site's HTML 404 page. This file records that absence; no
+  WellKnown or SecurityTxt pointer is emitted in apis.yml, because there is no
+  served document to point at.
+note: >-
+  The only other host in the record is the Admin API server itself, whose
+  documented default is http://localhost:9876 — Express Gateway is self-hosted
+  software, so that host exists only on an operator's own machine and cannot be
+  probed from here. docs.express-gateway.io 301-redirects to
+  https://www.express-gateway.io/docs/ and is therefore the same origin.
+hosts:
+- host: www.express-gateway.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: express-gateway.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: docs.express-gateway.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+  - path: /.well-known/api-catalog
+    status: 301
+  - path: /.well-known/agent-card.json
+    status: 301
+  - path: /.well-known/agent.json
+    status: 301
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

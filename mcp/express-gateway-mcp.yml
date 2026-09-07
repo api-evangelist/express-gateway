@@ -1,0 +1,118 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/_original/express-gateway-openapi.yml
+provider: Express Gateway
+providerId: express-gateway
+status: candidate
+description: >-
+  CANDIDATE tool list only. Express Gateway publishes no MCP server — hosted or
+  stdio. A search of the ExpressGateway GitHub organisation (8 repositories),
+  npm, and the documentation site found no MCP package, no MCP endpoint, and no
+  mention of the Model Context Protocol. mcp.express-gateway.io does not resolve.
+  The tools below are DERIVED from the Admin API operations so that a reader can
+  see what an MCP server over this API would expose; nobody ships them.
+note: >-
+  Wired into apis.yml as type X-MCPServerCandidate, not MCPServer. An MCPServer
+  pointer would assert that Express Gateway ships an agent surface, which it does
+  not. Note also that the OpenAPI these tools are derived from was written by API
+  Evangelist from the published Admin API Reference — it is not a
+  provider-published contract — so the input schemas an implementer would need
+  come from the docs, not from a machine-readable spec.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: searched
+searched:
+- surface: https://github.com/ExpressGateway (8 repos, listed via the GitHub API)
+  result: no MCP server or package
+- surface: https://registry.npmjs.org/-/v1/search?text=maintainer:express-gateway
+  result: no packages under that maintainer scope
+- surface: https://www.express-gateway.io/docs/
+  result: no reference to MCP
+- surface: https://mcp.express-gateway.io/
+  result: DNS does not resolve
+tools:
+- name: list_users
+  rest: listUsers
+  description: List the API consumers (users) registered on the gateway.
+- name: create_user
+  rest: createUser
+  description: Register a new user consumer.
+- name: get_user
+  rest: getUser
+  description: Fetch one user by id or username.
+- name: update_user
+  rest: updateUser
+  description: Update a user's profile fields.
+- name: delete_user
+  rest: deleteUser
+  description: Permanently delete a user. No reversal path.
+- name: set_user_status
+  rest: setUserStatus
+  description: Activate or deactivate a user. Reversible.
+- name: list_apps
+  rest: listApps
+  description: List the applications registered on the gateway.
+- name: create_app
+  rest: createApp
+  description: Register a new application under a user.
+- name: get_app
+  rest: getApp
+  description: Fetch one application by id.
+- name: update_app
+  rest: updateApp
+  description: Update an application's fields.
+- name: delete_app
+  rest: deleteApp
+  description: Permanently delete an application. No reversal path.
+- name: set_app_status
+  rest: setAppStatus
+  description: Activate or deactivate an application. Reversible.
+- name: list_credentials
+  rest: listCredentials
+  description: List credentials across consumers.
+- name: create_credential
+  rest: createCredential
+  description: Issue a credential (basic-auth, key-auth or oauth2) to a consumer.
+- name: list_consumer_credentials
+  rest: listConsumerCredentials
+  description: List every credential belonging to one user or app.
+- name: get_credential
+  rest: getCredential
+  description: Fetch one credential by type and id.
+- name: set_credential_status
+  rest: setCredentialStatus
+  description: Activate or deactivate a credential. Reversible.
+- name: set_credential_scopes
+  rest: setCredentialScopes
+  description: Replace the full scope set on a credential.
+- name: add_credential_scope
+  rest: addCredentialScope
+  description: Add one scope to a credential.
+- name: remove_credential_scope
+  rest: removeCredentialScope
+  description: Remove one scope from a credential.
+- name: list_scopes
+  rest: listScopes
+  description: List every scope declared on the gateway.
+- name: create_scopes
+  rest: createScopes
+  description: Create scopes in bulk.
+- name: get_scope
+  rest: getScope
+  description: Check whether a scope exists.
+- name: create_scope
+  rest: createScope
+  description: Create a single scope.
+- name: delete_scope
+  rest: deleteScope
+  description: Delete a scope. No reversal path.
+coverage:
+  rest_operations: 25
+  tools_derived: 25
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

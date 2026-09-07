@@ -1,0 +1,96 @@
+generated: '2026-09-07'
+method: searched
+source: https://github.com/ExpressGateway/express-gateway/releases
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Express Gateway's changelog is its GitHub Releases page — the project ships no
+  CHANGELOG.md (raw master/CHANGELOG.md returns 404) and the docs site has no
+  changelog page; the Project Roadmap links "Changelog" straight to Releases.
+scheme: semver
+current_version: 1.16.11
+current_version_published: '2021-04-29'
+changelog_url: https://github.com/ExpressGateway/express-gateway/releases
+note: >-
+  The release stream has stopped. The most recent tagged GitHub release is
+  v1.16.9 from 2019-09-22; two later versions (1.16.10, 1.16.11) were published to
+  npm with no accompanying GitHub release, the last on 2021-04-29. 48 versions
+  were published in total, the first on 2017-06-29 — so the project released
+  steadily for four years and has released nothing for over five.
+entries:
+- version: 1.16.11
+  date: '2021-04-29'
+  source: npm
+  breaking: false
+  note: Published to npm only; no GitHub release or notes accompany it.
+- version: 1.16.10
+  date: '2019-12-01'
+  source: npm
+  breaking: false
+  note: Published to npm only; no GitHub release or notes accompany it.
+- version: 1.16.9
+  date: '2019-09-22'
+  source: github-release
+  breaking: false
+  fixed:
+  - The HTTP proxy now uses a keep-alive agent, improving gateway performance (#947).
+- version: 1.16.8
+  date: '2019-09-07'
+  source: github-release
+  breaking: false
+  fixed:
+  - The oauth2-introspection policy can now be used in multiple pipelines (#942).
+- version: 1.16.7
+  date: '2019-07-13'
+  source: github-release
+  breaking: false
+  fixed:
+  - system.config.yml schema now requires the Redis `namespace` parameter, with a default, instead of crashing.
+  - Expired OAuth 2.0 codes return the correct message rather than a JavaScript error (#930).
+  changed:
+  - Windows CI restored.
+- version: 1.16.6
+  date: '2019-06-22'
+  source: github-release
+  breaking: false
+  fixed:
+  - Windows and macOS added to the test matrix via Azure Pipelines (#921).
+  - JSON Schema validation condition now resolves external schema references.
+- version: 1.16.4
+  date: '2019-06-01'
+  source: github-release
+  breaking: false
+  fixed:
+  - SNI tests rewritten for correct callback ordering, fixing Node 12 CI (#915).
+  changed:
+  - Dependencies upgraded, including Express.js; Node 12 support added.
+  - New OAuth 2.0 consent page (#907).
+- version: 1.16.3
+  date: '2019-04-14'
+  source: github-release
+  breaking: true
+  fixed:
+  - Content is now streamed back correctly after JSON Schema validation (#900).
+  - Identity-server bugs fixed by community contributions (#899, #901).
+  changed:
+  - Removed the undocumented `plugins` admin endpoint (#900) — a removal from the Admin API surface.
+  - Policies are now lazily loaded, improving startup time.
+- version: 1.16.1
+  date: '2019-04-01'
+  source: github-release
+  breaking: false
+- version: 1.16.0
+  date: '2019-03-25'
+  source: github-release
+  breaking: false
+- version: 1.15.0
+  date: '2019-02-06'
+  source: github-release
+  breaking: false
+- version: 1.14.0
+  date: '2018-12-21'
+  source: github-release
+  breaking: false
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

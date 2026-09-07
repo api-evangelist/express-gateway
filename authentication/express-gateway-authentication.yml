@@ -1,6 +1,24 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/express-gateway-openapi.yml
+generated: '2026-09-07'
+method: searched
+source: https://www.express-gateway.io/docs/admin/
+docs: https://www.express-gateway.io/docs/admin/
+provider: Express Gateway
+providerId: express-gateway
+description: >-
+  Authentication profile for the Express Gateway Admin API. The headline fact is
+  that the Admin API ships with NO authentication: it binds to
+  http://localhost:9876 and the reference states that public exposure "is not
+  usually a great idea". Any auth on it is something the operator adds. The
+  scheme below is the documented way to add it.
+default_posture:
+  authenticated: false
+  binding: http://localhost:9876
+  detail: >-
+    Out of the box the Admin API is open on localhost. The reference's own
+    security guidance is to remove the `admin` section from gateway.config.yml to
+    disable it entirely, or to keep `hostname: localhost` so it is not reachable
+    off-host.
+  docs: https://www.express-gateway.io/docs/configuration/gateway.config.yml/admin/
 summary:
   types:
   - apiKey
@@ -11,8 +29,55 @@ schemes:
   type: apiKey
   in: header
   parameter: Authorization
-  description: |-
-    When the Admin API is fronted by Express Gateway with key-auth,
-    send "Authorization: apikey {keyId}:{keySecret}".
+  format: 'apikey {keyId}:{keySecret}'
+  description: >-
+    The documented pattern is to expose the Admin API through Express Gateway
+    itself: declare an apiEndpoint for the admin hostname, a serviceEndpoint
+    pointing at http://localhost:9876, and a pipeline applying the key-auth policy
+    followed by proxy. Callers then send
+    "Authorization: apikey {keyId}:{keySecret}", where the pair comes from a
+    key-auth credential issued to an admin user. The CLI reaches the same secured
+    endpoint by setting `cli.url` in system.config.yml.
+  docs: https://www.express-gateway.io/docs/policies/key-authorization/
   sources:
-  - openapi/express-gateway-openapi.yml
+  - https://www.express-gateway.io/docs/admin/
+  - openapi/express-gateway-apps-api-openapi.yml
+  - openapi/express-gateway-credentials-api-openapi.yml
+  - openapi/express-gateway-scopes-api-openapi.yml
+  - openapi/express-gateway-users-api-openapi.yml
+gateway_credential_types:
+  note: >-
+    Distinct from the Admin API's own auth: these are the credential types Express
+    Gateway issues to consumers of the APIs it fronts. Recorded here because the
+    Admin API is what creates them.
+  types:
+  - type: basic-auth
+    detail: Username and password. At most one per consumer.
+    docs: https://www.express-gateway.io/docs/policies/basic-authorization/
+  - type: key-auth
+    detail: keyId/keySecret pair. A consumer may hold many, which enables rotation.
+    docs: https://www.express-gateway.io/docs/policies/key-authorization/
+  - type: oauth2
+    detail: >-
+      Client secret or user password, RFC 6749. At most one per consumer. Express
+      Gateway acts as both authorization server and resource server, exposing
+      POST /oauth2/authorize and POST /oauth2/token.
+    docs: https://www.express-gateway.io/docs/policies/oauth2/
+  - type: jwt
+    detail: JWT issuing and verification (RFC 7519), used to sign OAuth 2.0 tokens.
+    docs: https://www.express-gateway.io/docs/policies/jwt/
+discovery:
+  openid_configuration: false
+  oauth_authorization_server: false
+  detail: >-
+    Probed 2026-09-07 on www.express-gateway.io and express-gateway.io — both
+    /.well-known/openid-configuration and /.well-known/oauth-authorization-server
+    returned 404. Expected: the authorization server is the operator's own gateway
+    instance, not a host Express Gateway runs.
+  see: well-known/express-gateway-well-known.yml
+see_also:
+- scopes/express-gateway-scopes.yml
+- conventions/express-gateway-conventions.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
