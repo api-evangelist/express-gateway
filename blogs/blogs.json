@@ -1,0 +1,14 @@
+{
+  "repo": "express-gateway",
+  "feeds": [
+    {
+      "source": "https://github.com/ExpressGateway/express-gateway/issues",
+      "feed_url": "https://github.com/ExpressGateway/express-gateway/issues",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-09-13T13:00:00Z"
+}
