@@ -1,10 +1,7 @@
 {
   "provider": "express-gateway",
   "sources": [
-    "express-gateway-apps-api-openapi.yml",
-    "express-gateway-credentials-api-openapi.yml",
-    "express-gateway-scopes-api-openapi.yml",
-    "express-gateway-users-api-openapi.yml"
+    "_original/express-gateway-openapi.yml"
   ],
   "outputs": [
     "express-gateway-apps-api-openapi.yml",
@@ -16,11 +13,43 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "express-gateway-apps-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "express-gateway-credentials-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "express-gateway-scopes-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "express-gateway-users-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "express-gateway-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "express-gateway-openapi.yml: tagged paths GET /users -> Users",
+    "express-gateway-openapi.yml: tagged paths POST /users -> Users",
+    "express-gateway-openapi.yml: tagged paths GET /users/{id} -> Users",
+    "express-gateway-openapi.yml: tagged paths PUT /users/{id} -> Users",
+    "express-gateway-openapi.yml: tagged paths DELETE /users/{id} -> Users",
+    "express-gateway-openapi.yml: tagged paths PUT /users/{id}/status -> Users",
+    "express-gateway-openapi.yml: tagged paths GET /apps -> Apps",
+    "express-gateway-openapi.yml: tagged paths POST /apps -> Apps",
+    "express-gateway-openapi.yml: tagged paths GET /apps/{id} -> Apps",
+    "express-gateway-openapi.yml: tagged paths PUT /apps/{id} -> Apps",
+    "express-gateway-openapi.yml: tagged paths DELETE /apps/{id} -> Apps",
+    "express-gateway-openapi.yml: tagged paths PUT /apps/{id}/status -> Apps",
+    "express-gateway-openapi.yml: tagged paths GET /credentials -> Credentials",
+    "express-gateway-openapi.yml: tagged paths POST /credentials -> Credentials",
+    "express-gateway-openapi.yml: tagged paths GET /credentials/{consumerId} -> Credentials",
+    "express-gateway-openapi.yml: tagged paths GET /credentials/{type}/{id} -> Credentials",
+    "express-gateway-openapi.yml: tagged paths PUT /credentials/{type}/{id}/status -> Credentials",
+    "express-gateway-openapi.yml: tagged paths PUT /credentials/{type}/{id}/scopes -> Credentials",
+    "express-gateway-openapi.yml: tagged paths PUT /credentials/{type}/{id}/scopes/{scope} -> Credentials",
+    "express-gateway-openapi.yml: tagged paths DELETE /credentials/{type}/{id}/scopes/{scope} -> Credentials",
+    "express-gateway-openapi.yml: tagged paths GET /scopes -> Scopes",
+    "express-gateway-openapi.yml: tagged paths POST /scopes -> Scopes",
+    "express-gateway-openapi.yml: tagged paths GET /scopes/{scope} -> Scopes",
+    "express-gateway-openapi.yml: tagged paths PUT /scopes/{scope} -> Scopes",
+    "express-gateway-openapi.yml: tagged paths DELETE /scopes/{scope} -> Scopes",
+    "express-gateway-openapi.yml: declared missing tag: Apps",
+    "express-gateway-openapi.yml: declared missing tag: Credentials",
+    "express-gateway-openapi.yml: declared missing tag: Scopes",
+    "express-gateway-openapi.yml: declared missing tag: Users",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "express-gateway-apps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "express-gateway-credentials-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "express-gateway-scopes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "express-gateway-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
