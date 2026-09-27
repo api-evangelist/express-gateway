@@ -48,7 +48,7 @@ tags:
   - API Composition
   - API Gateway
   - BFF
-  - Open-Source
+  - Open Source
   - Microservices
   - Authentication
   - Node.js
@@ -62,6 +62,7 @@ tags_raw:
   - Authentication
   - Node.js
   - Reverse Proxy
+  - Open-Source
 url: >-
   https://raw.githubusercontent.com/api-evangelist/express-gateway/refs/heads/main/apis.yml
 created: '2026-03-27'
