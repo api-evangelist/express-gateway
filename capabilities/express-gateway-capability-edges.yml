@@ -1,0 +1,26 @@
+slug: express-gateway
+provider: Express Gateway
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Credentials
+  spec_file: express-gateway-credentials-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /credentials createCredential; PUT /credentials/{type}/{id}/status setCredentialStatus
+    Activate or deactivate a credential; PUT /credentials/{type}/{id}/scopes setCredentialScopes
+  reason: Operations issue, activate/deactivate and scope-authorise credentials for consumers (user or
+    app) used by the gateway's key-auth, OAuth 2.0 and JWT policies. This is squarely identity and access
+    management; no other business reading fits a self-hosted gateway admin surface.

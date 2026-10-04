@@ -126,6 +126,9 @@ apis:
   - type: OpenAPI
     url: openapi/express-gateway-users-api-openapi.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/express-gateway-capability-edges.yml
+    name: Express Gateway Business Capability Map
   - type: AgenticAccess
     url: agentic-access/express-gateway-agentic-access.yml
   - type: DomainSecurity
