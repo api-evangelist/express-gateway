@@ -126,6 +126,8 @@ apis:
   - type: OpenAPI
     url: openapi/express-gateway-users-api-openapi.yml
 common:
+  - type: FinOps
+    url: finops/express-gateway-finops.yml
   - type: CapabilityMap
     url: capabilities/express-gateway-capability-edges.yml
     name: Express Gateway Business Capability Map
