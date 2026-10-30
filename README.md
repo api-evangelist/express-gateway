@@ -1,4 +1,4 @@
-# Express Gateway (express-gateway)
+# Express Gateway
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,54 +64,146 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Express Gateway is an API gateway built on Express.js for managing and securing microservices and APIs.
+Express Gateway is an open-source (Apache-2.0) microservices and serverless API gateway built on Express.js and Node.js. Operators install it themselves and compose policies — key auth, OAuth 2.0, JWT, CORS, rate limiting, request and response transforms, proxying — into pipelines declared in a single YAML config, fronting their own downstream services. Its own HTTP surface is the Admin API, which manages users, applications, credentials, scopes, schemas, policies, endpoints and pipelines, and which binds by default to localhost:9876 rather than to any host the project runs. The project is dormant: the last release reached npm in April 2021.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/express-gateway/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/express-gateway/refs/heads/main/apis.yml)
+**Areas:** API Composition · API Gateway · BFF · Open Source · Microservices · Authentication · Node.js · Reverse Proxy
 
-## Scope
+## Express Gateway on APIs.io
 
-- **Type:** Index
-- **Position:** Producer
-- **Access:** Open Source
+Everything profiled for Express Gateway is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/express-gateway/](https://apis.io/providers/express-gateway/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- API Composition
-- API Gateway
-- BFF
+- [Express Gateway](https://apis.io/apis/express-gateway/express-gateway/) — Express Gateway is an API gateway built on Express.js for managing and securing microservices and APIs.
+- [Express Gateway Apps API](https://apis.io/apis/express-gateway/express-gateway-apps-api/) — The Apps API from Express Gateway — 3 operation(s) for apps.
+- [Express Gateway Credentials API](https://apis.io/apis/express-gateway/express-gateway-credentials-api/) — The Credentials API from Express Gateway — 6 operation(s) for credentials.
+- [Express Gateway Scopes API](https://apis.io/apis/express-gateway/express-gateway-scopes-api/) — The Scopes API from Express Gateway — 2 operation(s) for scopes.
+- [Express Gateway Users API](https://apis.io/apis/express-gateway/express-gateway-users-api/) — The Users API from Express Gateway — 3 operation(s) for users.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-27
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Express Gateway
+Model Context Protocol servers that expose the API to agents.
 
-Express Gateway is an API gateway built on Express.js for managing and securing microservices and APIs.
+- [express-gateway-mcp.yml](https://apis.io/servers/express-gateway/express-gateway-mcp-yml/)
 
-- **Human URL:** [https://www.express-gateway.io/](https://www.express-gateway.io/)
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- API Composition
-- API Gateway
+- [Express Gateway Agentic Access](https://apis.io/agentic-access/express-gateway/express-gateway-agentic-access/)
 
-#### Properties
+#### Collections (5)
 
-- [Documentation](https://www.express-gateway.io/docs/)
-- [Getting Started](https://www.express-gateway.io/getting-started/)
-- [Postman Collection](collections/express-gateway.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/express-gateway.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Express Gateway Admin API](https://apis.io/collections/express-gateway/open-express-gateway/)
+- [Express Gateway Admin Apps API](https://apis.io/collections/express-gateway/open-express-gateway-apps-api/)
+- [Express Gateway Admin Apps Credentials API](https://apis.io/collections/express-gateway/open-express-gateway-credentials-api/)
+- [Express Gateway Admin Apps Scopes API](https://apis.io/collections/express-gateway/open-express-gateway-scopes-api/)
+- [Express Gateway Admin Apps Users API](https://apis.io/collections/express-gateway/open-express-gateway-users-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Express Gateway Admin Api Overlay](https://apis.io/overlays/express-gateway/express-gateway-admin-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Express Gateway Authentication](https://apis.io/security/express-gateway/express-gateway-authentication/)
+- [Express Gateway Domain Security](https://apis.io/security/express-gateway/express-gateway-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Express Gateway Scopes](https://apis.io/scopes/express-gateway/express-gateway-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Express Gateway Plans Pricing](https://apis.io/plans/express-gateway/express-gateway-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Express Gateway Rate Limits](https://apis.io/rate-limits/express-gateway/express-gateway-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Express Gateway Finops](https://apis.io/finops/express-gateway/express-gateway-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.express-gateway.io/)
 - [Documentation](https://www.express-gateway.io/docs/)
-- [GitHub Organization](https://github.com/ExpressGateway)
+- [Getting started](https://www.express-gateway.io/getting-started/)
+- [API reference](https://www.express-gateway.io/docs/admin/)
+- [Support](https://github.com/ExpressGateway/express-gateway/issues)
+- [Blog](https://www.express-gateway.io/blog/)
+- [GitHub](https://github.com/ExpressGateway)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 34.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 43.8 |
+| Contract governance | 18.2 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 56.5 |
+| Access clarity | 0.0 |
+
+**Agent readiness 21.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 26.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/express-gateway/](https://apis.io/providers/express-gateway/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Express Gateway: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/express-gateway/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
